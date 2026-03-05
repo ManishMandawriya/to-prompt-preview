@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Deploying (e.g. AWS ECS)
+
+This app uses the **`src/` directory**. The path alias `@/` points to `./src/`, so imports like `@/components/Footer` resolve to `src/components/Footer`.
+
+**Required structure at build time:**
+
+- `src/app/` — layout.tsx, page.tsx, api/, villa/, globals.css
+- `src/components/` — Footer.tsx, Header.tsx, ThemeProvider.tsx, ThemeToggle.tsx
+- `src/lib/` — villas.ts
+
+Do **not** flatten the repo so that `app/` or `components/` sit at the project root. Keep the full `src/` tree. When building in Docker/ECS, copy the whole project (including `src/`) and run `pnpm install` and `pnpm build` from the repo root so that `src/components/Footer` and other files are found.
